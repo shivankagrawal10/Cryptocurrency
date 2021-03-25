@@ -73,7 +73,7 @@ def WriteFile(data, product_id, description):
     dt_time =  datetime.datetime.fromtimestamp(time['epoch'])#datetime.datetime.strptime(time['iso'], '%Y-%m-%d %I:%M%p')
     
     description += "_"+dt_time.strftime("%Y%m%d_%H%M%S")
-    '''
+    
     file_name = f'./shivank_restdata/{product_id}/{product_id}{description}.json'
     #file_name = file_name.replace("-","_")
     if not os.path.exists(os.path.dirname(file_name)):
@@ -83,7 +83,7 @@ def WriteFile(data, product_id, description):
             raise
     with open(file_name, 'w') as outfile:
         json.dump(data, outfile)
-    '''
+    
 
     df = pd.DataFrame([data])
     #if(type(data)==list):
