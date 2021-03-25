@@ -76,9 +76,9 @@ def WriteFile(data, product_id, description):
     
     file_name = f'./shivank_restdata/{product_id}/{product_id}{description}.json'
     #file_name = file_name.replace("-","_")
-    if not os.path.exists(os.path.dirname(file_name)):
+    if not os.path.exists(os.path.dirname('./shivank_restdata/{product_id}')):
         try:
-            os.makedirs(os.path.dirname(file_name))
+            os.makedirs(os.path.dirname('./shivank_restdata/{product_id}'))
         except:
             raise
     with open(file_name, 'w') as outfile:
@@ -93,9 +93,9 @@ def WriteFile(data, product_id, description):
         #df = pd.DataFrame.from_dict(data,orient='index',columns=data.keys())
     file_name = f'./shivank_restdata_csv/{product_id}/{product_id}{description}.csv'
     #file_name = file_name.replace("-","_")
-    if not os.path.exists(os.path.dirname(file_name)):
+    if not os.path.exists(os.path.dirname('./shivank_restdata_csv/{product_id}')):
         try:
-            os.makedirs(os.path.dirname(file_name))
+            os.makedirs(os.path.dirname('./shivank_restdata_csv/{product_id}'))
         except:
             raise
     export_csv = df.to_csv (file_name, index = None, header=True)
