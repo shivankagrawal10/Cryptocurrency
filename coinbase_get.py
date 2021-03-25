@@ -13,6 +13,7 @@ import requests
 import os
 import time
 import datetime
+import pandas as pd
 base_link = 'https://api-public.sandbox.pro.coinbase.com'
 request_link = 'https://api-public.sandbox.pro.coinbase.com/products'
 
@@ -70,8 +71,10 @@ def WriteFile(data, product_id, description):
         description = "_"+description
     time = requests.get(f'{base_link}/time').json()
     dt_time =  datetime.datetime.fromtimestamp(time['epoch'])#datetime.datetime.strptime(time['iso'], '%Y-%m-%d %I:%M%p')
-    description += "_"+dt_time.strftime("%Y%m%d_%H%M%S")+".json"
-    file_name = f'./shivank_restdata/{product_id}/{product_id}{description}'
+    
+    description += "_"+dt_time.strftime("%Y%m%d_%H%M%S")
+    '''
+    file_name = f'./shivank_restdata/{product_id}/{product_id}{description}.json'
     #file_name = file_name.replace("-","_")
     if not os.path.exists(os.path.dirname(file_name)):
         try:
@@ -80,6 +83,22 @@ def WriteFile(data, product_id, description):
             raise
     with open(file_name, 'w') as outfile:
         json.dump(data, outfile)
+    '''
+
+    df = pd.DataFrame([data])
+    #if(type(data)==list):
+    #    df = pd.DataFrame.from_dict(data)
+    #else:
+    #    df = pd.DataFrame.from_dict(list(data),orient='index', columns=data.keys())
+        #df = pd.DataFrame.from_dict(data,orient='index',columns=data.keys())
+    file_name = f'./shivank_restdata_csv/{product_id}/{product_id}{description}.csv'
+    #file_name = file_name.replace("-","_")
+    if not os.path.exists(os.path.dirname(file_name)):
+        try:
+            os.makedirs(os.path.dirname(file_name))
+        except:
+            raise
+    export_csv = df.to_csv (file_name, index = None, header=True)
 
 def Run():
     g_master = GetMasterList()
@@ -87,10 +106,10 @@ def Run():
         GetIndividualProductInfo(i['id'])
         for j in range(1,4):
             GetIndividualProductBook(i['id'],j)
-            time.sleep(2)
+            time.sleep(1)
         GetIndividualProductTrades(i['id'])
         GetIndividualProductTicker(i['id'])
         GetIndividualProductCandles(i['id'])
         GetIndividualProductStats(i['id'])
-    
+        print(f'finished: {i["id"]}')
 Run()
