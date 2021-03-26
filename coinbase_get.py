@@ -14,7 +14,8 @@ import os
 import time
 import datetime
 import pandas as pd
-machine = 1 
+import sys
+machine = sys.argv[1]  
 base_link = 'https://api-public.sandbox.pro.coinbase.com'
 request_link = 'https://api-public.sandbox.pro.coinbase.com/products'
 target_lin = '/home/shivank/tech/ref/crypto/shivank_coinbase/Cryptocurrency/'
