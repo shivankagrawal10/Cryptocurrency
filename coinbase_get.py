@@ -16,6 +16,7 @@ import datetime
 import pandas as pd
 base_link = 'https://api-public.sandbox.pro.coinbase.com'
 request_link = 'https://api-public.sandbox.pro.coinbase.com/products'
+target_lin = '/home/shivank/tech/ref/crypto/shivank_coinbase/Cryptocurrency/'
 
 #https://api-public.sandbox.pro.coinbase.com
 
@@ -81,7 +82,7 @@ def WriteFile(data, product_id, description):
             os.makedirs(os.path.dirname('./shivank_restdata/{product_id}'))
         except:
             raise
-    with open(file_name, 'w') as outfile:
+    with open(file_name, 'w+') as outfile:
         json.dump(data, outfile)
     
 
