@@ -14,10 +14,11 @@ import os
 import time
 import datetime
 import pandas as pd
+machine = 1 
 base_link = 'https://api-public.sandbox.pro.coinbase.com'
 request_link = 'https://api-public.sandbox.pro.coinbase.com/products'
 target_lin = '/home/shivank/tech/ref/crypto/shivank_coinbase/Cryptocurrency/'
-
+tartget_win = "C:\\personal\\Programming\\Quant\\Cryptocurrency\\"
 #https://api-public.sandbox.pro.coinbase.com
 
 def GetMasterList():
@@ -68,6 +69,9 @@ def GetIndividualProductStats(product_id : str):
     return individual_info
 
 def WriteFile(data, product_id, description):
+    target = target_lin
+    if(machine == 1):
+        target = tartget_win
     if description:
         description = "_"+description
     time = requests.get(f'{base_link}/time').json()
@@ -75,11 +79,11 @@ def WriteFile(data, product_id, description):
     
     description += "_"+dt_time.strftime("%Y%m%d_%H%M%S")
     
-    file_name = f'./shivank_restdata/{product_id}/{product_id}{description}.json'
+    file_name = f'{target}/shivank_restdata/{product_id}/{product_id}{description}.json'
     #file_name = file_name.replace("-","_")
-    if not os.path.exists(os.path.dirname('./shivank_restdata/{product_id}')):
+    if not os.path.exists(os.path.dirname(file_name)):
         try:
-            os.makedirs(os.path.dirname('./shivank_restdata/{product_id}'))
+            os.makedirs(os.path.dirname(file_name))
         except:
             raise
     with open(file_name, 'w+') as outfile:
@@ -87,16 +91,11 @@ def WriteFile(data, product_id, description):
     
 
     df = pd.DataFrame([data])
-    #if(type(data)==list):
-    #    df = pd.DataFrame.from_dict(data)
-    #else:
-    #    df = pd.DataFrame.from_dict(list(data),orient='index', columns=data.keys())
-        #df = pd.DataFrame.from_dict(data,orient='index',columns=data.keys())
-    file_name = f'./shivank_restdata_csv/{product_id}/{product_id}{description}.csv'
+    file_name = f'{target}/shivank_restdata_csv/{product_id}/{product_id}{description}.csv'
     #file_name = file_name.replace("-","_")
-    if not os.path.exists(os.path.dirname('./shivank_restdata_csv/{product_id}')):
+    if not os.path.exists(os.path.dirname(file_name)):
         try:
-            os.makedirs(os.path.dirname('./shivank_restdata_csv/{product_id}'))
+            os.makedirs(os.path.dirname(file_name))
         except:
             raise
     export_csv = df.to_csv (file_name, index = None, header=True)
