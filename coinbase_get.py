@@ -15,11 +15,11 @@ import time
 import datetime
 import pandas as pd
 import sys
-machine = sys.argv[1]  
+machine = int(sys.argv[1])  
 base_link = 'https://api-public.sandbox.pro.coinbase.com'
 request_link = 'https://api-public.sandbox.pro.coinbase.com/products'
 target_lin = '/home/shivank/tech/ref/crypto/shivank_coinbase/Cryptocurrency/'
-tartget_win = "C:\\personal\\Programming\\Quant\\Cryptocurrency\\"
+tartget_win = "C:/personal/Programming/Quant/Cryptocurrency/"
 #https://api-public.sandbox.pro.coinbase.com
 
 def GetMasterList():
@@ -87,7 +87,7 @@ def WriteFile(data, product_id, description):
             os.makedirs(os.path.dirname(file_name))
         except:
             raise
-    with open(file_name, 'w+') as outfile:
+    with open(file_name, 'w') as outfile:
         json.dump(data, outfile)
     
 

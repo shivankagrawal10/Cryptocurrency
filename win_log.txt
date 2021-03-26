@@ -1,0 +1,12 @@
+finished: BAT-USDC
+finished: BTC-USD
+finished: LINK-USDC
+finished: BTC-EUR
+finished: BTC-GBP
+finished: ETH-BTC
+finished: BTC-USD
+finished: ETH-BTC
+finished: BTC-GBP
+finished: BAT-USDC
+finished: BTC-EUR
+finished: LINK-USDC
